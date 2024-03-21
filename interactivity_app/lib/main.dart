@@ -9,15 +9,40 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     const String appTitle = 'Flutter layout demo';
     return MaterialApp(
-      title: appTitle,
+      // title: appTitle,
       home: Scaffold(
+        drawer: Drawer(
+          child: Column(
+            children: [
+              const SizedBox(
+                width: double.infinity,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Use of Icons',
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      Icon(Icons.ads_click_sharp),
+                    ],
+                  ),
+                ),
+              ),
+              ListTile(title: const Text('Option #1'), onTap: () {}),
+            ],
+          ),
+        ),
         appBar: AppBar(
           title: const Text(appTitle),
         ),
         // Diferencia entre SingleChildScrollView + Column vs ListView
         body: const SingleChildScrollView(
           child: Column(
-            children:  [
+            children: [
               ImageSection(
                 image: 'assets/lake.jpg',
               ),
@@ -36,6 +61,17 @@ class MyApp extends StatelessWidget {
                     'degrees Celsius in the summer. Activities enjoyed here '
                     'include rowing, and riding the summer toboggan run.',
               ),
+              ButtonsSection(),
+              TextSection(
+                description:
+                    'Lake Oeschinen lies at the foot of the Blüemlisalp in the '
+                    'Bernese Alps. Situated 1,578 meters above sea level, it '
+                    'is one of the larger Alpine Lakes. A gondola ride from '
+                    'Kandersteg, followed by a half-hour walk through pastures '
+                    'and pine forest, leads you to the lake, which warms to 20 '
+                    'degrees Celsius in the summer. Activities enjoyed here '
+                    'include rowing, and riding the summer toboggan run.',
+              ),
             ],
           ),
         ),
@@ -44,6 +80,41 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class ButtonsSection extends StatelessWidget {
+  const ButtonsSection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TextButton(
+            onPressed: () {},
+            style: TextButton.styleFrom(foregroundColor: Colors.purpleAccent),
+            child: const Text('Type 1'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.purple,
+                backgroundColor: Colors.deepPurpleAccent),
+            onPressed: () {},
+            child: const Text('Type 2'),
+          ),
+          OutlinedButton(
+            onPressed: () {},
+            style:
+                OutlinedButton.styleFrom(foregroundColor: Colors.deepPurple),
+            child: const Text('Type 3'),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 //Clases que llamo en MyApp (segundo nivel de jerarquia)
 class ImageSection extends StatelessWidget {
@@ -231,7 +302,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
           padding: const EdgeInsets.all(0),
           child: IconButton(
             padding: const EdgeInsets.all(0),
-            alignment: Alignment.centerRight,
+            alignment: Alignment.center,
             icon: (_isFavorited
                 ? const Icon(Icons.star)
                 : const Icon(Icons.star_border)),
